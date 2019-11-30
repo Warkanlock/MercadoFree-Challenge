@@ -1,3 +1,7 @@
+///
+/// Related to JSON utilities that allows you convert dictionary that comes from MercadoLibre API to JSON's like objects, in order to use in our front-end app.
+///
+
 getAuthor = (name, lastname) => {
     return {
         "name": name,
@@ -9,7 +13,7 @@ getCategories = (categories) => {
     let itemsInCategories = [];
 
     categories.forEach(element => {
-        itemsInCategories.push(element['name']);
+        itemsInCategories.push(element['path_from_root']);
     });
 
     return itemsInCategories;
@@ -38,6 +42,25 @@ getItems = (results) => {
     return itemsReturnedBy;
 }
 
+getItemDesc = (itemDescription) => {
+    let item = {};
+
+    item['id'] = itemDescription['id'];
+    item['title'] = itemDescription['title'];
+    item['price'] = {
+        "currency": itemDescription['currency_id'],
+        "amount": itemDescription['price'],
+        "decimals": itemDescription['price'].countDecimals()
+    };
+    item['picture'] = itemDescription['thumbnail'];
+    item['condition'] = itemDescription['condition'];
+    item['free_shipping'] = itemDescription['shipping']['free_shipping'];
+    item['sold_quantity'] = itemDescription['sold_quantity'];
+    item['description'] = itemDescription['descriptions'];
+
+    return item;
+}
+
 const transformIntoFunc = (type, list) => {
     let objectManipulated;
 
@@ -48,6 +71,15 @@ const transformIntoFunc = (type, list) => {
             tempObject['author'] = getAuthor("Ignacio", "Brasca");
             tempObject['categories'] = getCategories(list['filters'][0]['values']);
             tempObject['items'] = getItems(list['results']);
+
+            objectManipulated = tempObject;
+
+            return objectManipulated;
+        } else if (type == "itemDesc") {
+            let tempObject = {};
+
+            tempObject['author'] = getAuthor("Ignacio", "Brasca");
+            tempObject['item'] = getItemDesc(list)
 
             objectManipulated = tempObject;
 
