@@ -1,0 +1,47 @@
+.stick-header {
+  background-color: yellow;
+  text-align: center;
+  padding: 5px 5px 10px 5px;
+  margin: 0px 0px 20px 0px;
+  align-items: center;
+  top: 0px;
+  width: 100%;
+  font-size: calc(10px + 2vmin);
+  color: whitesmoke;
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 2px 2px 3px 5px #ccc;
+}
+
+.fixedposition {
+  position: fixed;
+  display: inline;
+  height: 20px;
+  width: 20px;
+  left: auto;
+}
+
+.fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+  transition: all 0s 1s, opacity 1s linear;
+}
+
+.search {
+  color: gray;
+  padding: 10px;
+}
+
+.input {
+  width: 40%;
+  border-radius: 5px;
+  font-size: medium;
+  background-color: whitesmoke;
+}

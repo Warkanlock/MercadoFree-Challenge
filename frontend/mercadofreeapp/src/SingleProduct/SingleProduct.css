@@ -1,0 +1,9 @@
+.left-title{
+    text-align: left;
+}
+
+.card-product{ 
+    justify-content: center;
+    text-align: center;
+    padding: 2px;
+}

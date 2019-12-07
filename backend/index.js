@@ -5,8 +5,12 @@
 const transformInto = require("./jsonUtils.js");
 const express = require("express");
 const fetch = require("axios");
+var cors = require("cors");
 
 const app = express();
+
+//To prevent CORS errors
+app.use(cors());
 
 var port = process.env.PORT || 8080;
 var endpoints = {
@@ -33,6 +37,7 @@ app.get("/api/items", (req, res) => {
             console.log("ERROR:" + err);
         }
     );
+    console.log(`Response Status -> ${res.statusCode}`)
 });
 
 app.get("/api/items/:id", (req, res) => {
@@ -48,7 +53,7 @@ app.get("/api/items/:id", (req, res) => {
             console.log("ERROR:" + err);
         }
     );
-
+    console.log(`Response Status -> ${res.statusCode}`)
 });
 
 app.listen(port, () => {
