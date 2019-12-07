@@ -68,13 +68,21 @@ const transformIntoFunc = (type, list) => {
         if (type == "result") {
             let tempObject = {};
 
-            tempObject['author'] = getAuthor("Ignacio", "Brasca");
-            tempObject['categories'] = getCategories(list['filters'][0]['values']);
-            tempObject['items'] = getItems(list['results']);
+            if (list['filters'].length > 0) {
+                tempObject['author'] = getAuthor("Ignacio", "Brasca");
+                tempObject['categories'] = getCategories(list['filters'][0]['values']);
+                tempObject['items'] = getItems(list['results']);
 
-            objectManipulated = tempObject;
+                objectManipulated = tempObject;
 
-            return objectManipulated;
+                return objectManipulated;
+            } else {
+                console.log("No hay resultados")
+                return {
+                    error: "No hay resultados",
+                    status: 404
+                }
+            }
         } else if (type == "itemDesc") {
             let tempObject = {};
 

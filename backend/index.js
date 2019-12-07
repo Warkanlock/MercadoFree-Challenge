@@ -46,7 +46,11 @@ app.get("/api/items/:id", (req, res) => {
     makeAsyncRequest(endpoints['itemDesc'], idToFetch).then(
         data => {
             items = data;
-            res.send((transformInto.transformInto("itemDesc", items)));
+            dataToSend = transformInto.transformInto("itemDesc", items)
+            if (dataToSend.status == 404) {
+                res.sendStatus(404);
+            }
+            res.send(dataToSend);
         }
     ).catch(
         err => {
