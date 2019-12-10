@@ -3,6 +3,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import SingleProduct from "../SingleProduct/SingleProduct";
 import "./Products.css";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 const API = "http://localhost:8080/api/items?q=";
 
@@ -75,18 +76,11 @@ class Products extends Component {
           </div>
         ) : (
           <div>
-            <div className="col d-flex justify-content-center">
-              <ol className="breadcrumb bg-transparent center">
-                {resultList.categories.map(cat =>
-                  cat.map(item => (
-                    <li className="breadcrumb-item">{item.name}</li>
-                  ))
-                )}
-              </ol>
-            </div>
-            {resultList.items.slice(0, 5).map(item => (
+            <Breadcrumb resultList={resultList} />
+            {resultList.items.slice(0, 4).map(item => (
               <div className="card-product">
                 <SingleProduct
+                  id={item.id}
                   title={item.title}
                   imgUrl={item.picture}
                   price={item.price.amount}

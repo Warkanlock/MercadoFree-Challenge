@@ -2,6 +2,14 @@
 /// Related to JSON utilities that allows you convert dictionary that comes from MercadoLibre API to JSON's like objects, in order to use in our front-end app.
 ///
 
+const fetch = require("axios");
+
+const makeAsyncRequest = async (url, query) => {
+    let res = await fetch.get(`${url}${query}`);
+    let data = res.data;
+    return data;
+}
+
 getAuthor = (name, lastname) => {
     return {
         "name": name,
@@ -10,11 +18,7 @@ getAuthor = (name, lastname) => {
 }
 
 getCategories = (categories) => {
-    let itemsInCategories = [];
-
-    categories.forEach(element => {
-        itemsInCategories.push(element['path_from_root']);
-    });
+    let itemsInCategories = categories[0]['path_from_root']
 
     return itemsInCategories;
 }
@@ -42,7 +46,21 @@ getItems = (results) => {
     return itemsReturnedBy;
 }
 
-getItemDesc = (itemDescription) => {
+getDescriptions = async (idProduct) => {
+    let desc;
+    await fetch.get(`https://api.mercadolibre.com/items/${idProduct}/description`).then(
+        data => {
+            return data.data['plain_text'];
+        }
+    ).then(
+        data => {
+            desc = data;
+        }
+    );
+    return desc;
+}
+
+const getItemDesc = (itemDescription) => {
     let item = {};
 
     item['id'] = itemDescription['id'];
@@ -56,7 +74,12 @@ getItemDesc = (itemDescription) => {
     item['condition'] = itemDescription['condition'];
     item['free_shipping'] = itemDescription['shipping']['free_shipping'];
     item['sold_quantity'] = itemDescription['sold_quantity'];
-    item['description'] = itemDescription['descriptions'];
+
+    getDescriptions(item['id']).then(
+        data => {
+            item['description'] = data
+        }
+    )
 
     return item;
 }
@@ -87,7 +110,7 @@ const transformIntoFunc = (type, list) => {
             let tempObject = {};
 
             tempObject['author'] = getAuthor("Ignacio", "Brasca");
-            tempObject['item'] = getItemDesc(list)
+            tempObject['item'] = getItemDesc(list);
 
             objectManipulated = tempObject;
 
@@ -106,5 +129,6 @@ Number.prototype.countDecimals = function () {
 }
 
 module.exports = {
-    transformInto: transformIntoFunc
+    transformInto: transformIntoFunc,
+    makeRequestAsync: makeAsyncRequest
 };
