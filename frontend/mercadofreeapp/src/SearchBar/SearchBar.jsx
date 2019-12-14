@@ -16,7 +16,18 @@ class SearchBar extends Component {
 
   handleKey(e) {
     if (e.key == "Enter") {
-      window.location.href = `/items?search=${this.state.searchText}`;
+      if (this.state.searchText != "Search for a product...") {
+        window.location.href = `/items?search=${this.state.searchText}`;
+      } else {
+        this.setState({
+          alertText: true
+        });
+      }
+      setInterval(() => {
+        this.setState({
+          alertText: false
+        });
+      }, 3000);
     }
   }
 
