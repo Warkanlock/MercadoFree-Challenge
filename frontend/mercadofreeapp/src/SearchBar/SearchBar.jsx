@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./SearchBar.css";
 
 class SearchBar extends Component {
@@ -47,6 +48,13 @@ class SearchBar extends Component {
       <div>
         <div className="stick-header">
           <div>
+            <Link to={"/"}>
+              <img
+                src="http://protalenters.com/wp-content/uploads/2016/08/meli-logo-300x90@2x.png"
+                alt="Logo MercadoLibre"
+                className="icon-picture"
+              />
+            </Link>
             <input
               type="text"
               className="input"

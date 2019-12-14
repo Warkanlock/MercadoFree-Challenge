@@ -42,12 +42,12 @@ class DetailProduct extends Component {
 
     if (isLoading) {
       return (
-        <>
+        <div className="text-center">
           <div>
             <SearchBar {...this.props} />
           </div>
-          <h4>Loading, please wait...</h4>
-        </>
+          <p>Loading, please wait...</p>
+        </div>
       );
     }
     return (
@@ -57,7 +57,6 @@ class DetailProduct extends Component {
         </header>
         <div>
           <Breadcrumb resultList={detailItem}></Breadcrumb>
-          {console.log(detailItem)}
           <div className="col d-flex justify-content-center">
             <div className="card-rectangle">
               <div className="row">

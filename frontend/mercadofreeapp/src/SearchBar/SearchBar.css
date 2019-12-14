@@ -1,5 +1,5 @@
 .stick-header {
-  background-color: yellow;
+  background-color: #fff159;
   text-align: center;
   padding: 5px 5px 10px 5px;
   margin: 0px 0px 20px 0px;
@@ -11,6 +11,12 @@
   -moz-box-shadow: 3px 3px 5px 6px #ccc;
   -webkit-box-shadow: 3px 3px 5px 6px #ccc;
   box-shadow: 2px 2px 3px 5px #ccc;
+}
+
+.icon-picture {
+  height: 30px;
+  width: 120px;
+  padding: 0px 20px 0px 0px;
 }
 
 .fixedposition {
