@@ -46,7 +46,7 @@ getItems = (results) => {
     return itemsReturnedBy;
 }
 
-getDescriptions = async (idProduct) => {
+const getDescriptions = async (idProduct) => {
     let desc;
     await fetch.get(`https://api.mercadolibre.com/items/${idProduct}/description`).then(
         data => {
@@ -75,12 +75,6 @@ const getItemDesc = (itemDescription) => {
     item['free_shipping'] = itemDescription['shipping']['free_shipping'];
     item['sold_quantity'] = itemDescription['sold_quantity'];
 
-    getDescriptions(item['id']).then(
-        data => {
-            item['description'] = data
-        }
-    )
-
     return item;
 }
 
@@ -91,21 +85,17 @@ const transformIntoFunc = (type, list) => {
         if (type == "result") {
             let tempObject = {};
 
+            tempObject['author'] = getAuthor("Ignacio", "Brasca");
             if (list['filters'].length > 0) {
-                tempObject['author'] = getAuthor("Ignacio", "Brasca");
                 tempObject['categories'] = getCategories(list['filters'][0]['values']);
-                tempObject['items'] = getItems(list['results']);
-
-                objectManipulated = tempObject;
-
-                return objectManipulated;
             } else {
-                console.log("No hay resultados")
-                return {
-                    error: "No hay resultados",
-                    status: 404
-                }
+                tempObject['categories'] = ["Categoria No Existente"]
             }
+            tempObject['items'] = getItems(list['results']);
+
+            objectManipulated = tempObject;
+
+            return objectManipulated;
         } else if (type == "itemDesc") {
             let tempObject = {};
 
@@ -130,5 +120,6 @@ Number.prototype.countDecimals = function () {
 
 module.exports = {
     transformInto: transformIntoFunc,
-    makeRequestAsync: makeAsyncRequest
+    makeRequestAsync: makeAsyncRequest,
+    getDescriptionAsync: getDescriptions
 };

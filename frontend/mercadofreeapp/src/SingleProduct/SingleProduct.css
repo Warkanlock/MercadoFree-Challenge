@@ -1,9 +1,13 @@
-.left-title{
+.left-title {
     text-align: left;
 }
 
-.card-product{ 
+.card-product {
     justify-content: center;
     text-align: center;
     padding: 2px;
+}
+
+.card-img {
+    padding: 10px;
 }

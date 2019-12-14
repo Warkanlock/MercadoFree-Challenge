@@ -59,32 +59,52 @@ class DetailProduct extends Component {
           <Breadcrumb resultList={detailItem}></Breadcrumb>
           {console.log(detailItem)}
           <div className="col d-flex justify-content-center">
-            <div
-              className="card mb-1 card-detail"
-              style={{
-                width: "900px",
-                height: "700px",
-                padding: "10px 10px 10px 10px"
-              }}
-            >
-              <div className="row no-gutters">
-                <div className="col-4">
-                  <img src={detailItem.item.picture} className="card-img" />
-                </div>
-                <div className="col-8">
-                  <div className="col-12">
-                    <div className="card-body">
-                      <h5 className="card-title left-title">
-                        <b>{detailItem.item.price.amount} $</b>
-                      </h5>
-                      <h3 className="card-text left-title">
-                        {detailItem.item.title}
-                      </h3>
-                      <p className="card-text left-title">
-                        {detailItem.item.description}
-                      </p>
+            <div className="card-rectangle">
+              <div className="row">
+                <div className="left-padding-pic">
+                  <div className="col-4">
+                    <img
+                      src={detailItem.item.picture}
+                      className="img-fluid size-img"
+                    ></img>
+                  </div>
+                  <div className="col-8">
+                    <div className="text-center">
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="left-title condition">
+                            {detailItem.item.condition == "new" ? (
+                              <div>Producto Nuevo</div>
+                            ) : (
+                              <div>Producto Usado</div>
+                            )}
+                          </div>
+                          <div className="left-title card-title-name">
+                            <b>{detailItem.item.title}</b>
+                          </div>
+                          <h3 className="left-title card-title-price">
+                            {detailItem.item.price.amount} $
+                          </h3>
+                          <div className="text-right">
+                            <button
+                              type="button"
+                              className="btn btn-primary center-button"
+                            >
+                              Comprar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className="detail">
+                <div className="description-title">
+                  Descripcion del Producto
+                </div>
+                <div className="description-text">
+                  {detailItem.item.description}
                 </div>
               </div>
             </div>

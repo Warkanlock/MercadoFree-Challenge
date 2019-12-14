@@ -4,6 +4,7 @@
 
 const transformInto = require("./jsonUtils.js");
 const makeRequestAsync = require("./jsonUtils.js");
+const getDescriptionAsync = require("./jsonUtils.js");
 const express = require("express");
 var cors = require("cors");
 
@@ -46,10 +47,15 @@ app.get("/api/items/:id", (req, res) => {
             makeRequestAsync.makeRequestAsync(endpoints['categories'], categorieId).then(
                 cat => {
                     dataToSend['categories'] = cat['path_from_root'];
-                    if (dataToSend.status == 404) {
-                        res.sendStatus(404);
-                    }
-                    res.send(dataToSend);
+                    getDescriptionAsync.getDescriptionAsync(idToFetch).then(
+                        data => {
+                            dataToSend['item']['description'] = data;
+                            if (dataToSend.status == 404) {
+                                res.sendStatus(404);
+                            }
+                            res.send(dataToSend);
+                        }
+                    )
                 }
             )
         }
